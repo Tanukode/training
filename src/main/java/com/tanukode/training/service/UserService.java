@@ -60,7 +60,7 @@ public class UserService {
                     return repository.findByUsername(newUserName).switchIfEmpty(repository.save(user));
                 });
     }
-
+    
     public Mono<String> deleteUser(UUID uid) {
         return repository.deleteById(uid).then(Mono.just("User deleted successfully"));
     }

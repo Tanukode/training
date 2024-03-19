@@ -1,6 +1,7 @@
 package com.tanukode.training.data;
 
 import java.util.Collection;
+import java.util.UUID;
 
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -10,9 +11,12 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Data
 public class UserDetailsImp implements UserDetails{
+    private final UUID uid;
     private final String username;
     private final String password;
     private final String email;
+    private final String firstName;
+    private final String lastName;
     private final Collection<Authority> authorities;
     private final boolean accountNonExpired = true;
     private final boolean accountNonLocked = true;

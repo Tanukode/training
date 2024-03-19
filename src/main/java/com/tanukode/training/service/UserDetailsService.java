@@ -24,12 +24,12 @@ public class UserDetailsService implements ReactiveUserDetailsService {
 
     public Mono<UserDetailsImp> findUserDetailsByUsername(String username) {
         return databaseClient.sql("""
-                SELECT u.username, u.password, u.email, STRING_AGG(a.name, ',') as authorities
+                SELECT u.uid, u.username, u.password, u.email, u.first_name, u.last_name, STRING_AGG(a.name, ',') as authorities
                 FROM "user" u
                 JOIN "user_authorities" ua ON u.uid = ua.user_uid
                 JOIN "authority" a ON ua.authority_id = a.id
                 WHERE u.username = :username
-                GROUP BY u.username, u.password, u.email
+                GROUP BY u.uid, u.username, u.password, u.email, u.first_name, u.last_name
                 """).bind("username", username)
                 .mapProperties(UserDetailsImp.class).one();
     }
