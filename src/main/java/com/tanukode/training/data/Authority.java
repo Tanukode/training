@@ -10,14 +10,20 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 @Table("authority")
-public class Authority implements GrantedAuthority{
+public class Authority implements GrantedAuthority {
+    @Column("id")
+    private final int id;
     @Column("name")
     private final String authority;
 
+    public Authority(String authority){
+        this.id = 0;
+        this.authority = "";
+    }
 
     @Override
     public String getAuthority() {
         return this.authority;
     }
-    
+
 }

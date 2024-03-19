@@ -6,13 +6,15 @@ import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
+import com.tanukode.training.controller.handler.UserDetailsHandler;
 import com.tanukode.training.controller.handler.UserHandler;
 
 @Configuration
 public class Router {
     @Bean
-    RouterFunction<ServerResponse> route(UserHandler handler) {
+    RouterFunction<ServerResponse> route(UserHandler handler, UserDetailsHandler userDetailsHandler) {
         return RouterFunctions.route()
+                .GET("/details/{username}", userDetailsHandler::getUserDetails)
                 .GET("/users", handler::getAll)
                 .GET("/users/{uid}", handler::getById)
                 .POST("/users", handler::save)
