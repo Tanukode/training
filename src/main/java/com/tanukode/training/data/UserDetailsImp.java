@@ -5,6 +5,8 @@ import java.util.UUID;
 
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
@@ -17,6 +19,7 @@ public class UserDetailsImp implements UserDetails{
     private final String email;
     private final String firstName;
     private final String lastName;
+    @JsonProperty("authorities")
     private final Collection<Authority> authorities;
     private final boolean accountNonExpired = true;
     private final boolean accountNonLocked = true;

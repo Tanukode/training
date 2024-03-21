@@ -6,20 +6,35 @@ import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
+import com.tanukode.training.controller.handler.AuthenticationHandler;
 import com.tanukode.training.controller.handler.UserDetailsHandler;
 import com.tanukode.training.controller.handler.UserHandler;
 
 @Configuration
 public class Router {
     @Bean
-    RouterFunction<ServerResponse> route(UserHandler handler, UserDetailsHandler userDetailsHandler) {
+    RouterFunction<ServerResponse> route(UserHandler handler, UserDetailsHandler userDetailsHandler, AuthenticationHandler authenticationHandler) {
         return RouterFunctions.route()
                 .GET("/details/{username}", userDetailsHandler::getUserDetails)
                 .GET("/users", handler::getAll)
                 .GET("/users/{uid}", handler::getById)
                 .POST("/users", handler::save)
+                .POST("/signup", authenticationHandler::signup)
                 .PUT("/users/{uid}", handler::update)
                 .DELETE("/users/{uid}", handler::delete)
                 .build();
     }
 }
+
+// sample json for signup
+// {
+//     "username": "kakita",
+//     "password": "test",
+//     "email": "testasdfasdfasdf",
+//     "firstName": "test",
+//     "lastName": "test",
+//     "authorities": [
+//         "ROLE_USER",
+//         "ROLE_ADMIN"
+//     ]
+// }

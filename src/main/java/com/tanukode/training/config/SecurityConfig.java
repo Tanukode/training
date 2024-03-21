@@ -14,6 +14,7 @@ public class SecurityConfig {
         http
                 .authorizeExchange(exchanges -> exchanges
                 .pathMatchers("/login").permitAll()
+                .pathMatchers("/signup").permitAll()
                 .anyExchange().authenticated())
                 .csrf(csrf->csrf.disable())
                 .formLogin(Customizer.withDefaults());

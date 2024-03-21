@@ -64,4 +64,6 @@ public class UserService {
     public Mono<String> deleteUser(UUID uid) {
         return repository.deleteById(uid).then(Mono.just("User deleted successfully"));
     }
+
+    
 }
