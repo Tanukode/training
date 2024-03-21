@@ -38,18 +38,4 @@ public class AuthenticationHandler {
                     return userDetailsService.signUp(newUser, authorities).then(ok().body(userDetailsService.findByUsername(newUser.getUsername()), UserDetailsImp.class));
                 });
     }
-    // public Mono<ServerResponse> signUp(ServerRequest request) {
-    //     return request.bodyToMono(UserDetailsImp.class)
-    //             .flatMap(userDetails -> {
-    //                 User newUser = new User(null, userDetails.getUsername(), userDetails.getPassword(),
-    //                         userDetails.getEmail(), userDetails.getFirstName(), userDetails.getLastName());
-    //                 Collection<Authority> authorities = userDetails.getAuthorities();
-    //                 if (authorities == null) {
-    //                     authorities = new ArrayList<>();
-    //                 }
-    //                 return ok().body(userDetailsService.signUp(newUser, authorities), UserDetailsImp.class);
-    //             });
-    // }
-
-    
 }
