@@ -26,3 +26,16 @@ public class UserDetailsImp implements UserDetails{
     private final boolean credentialsNonExpired = true;
     private final boolean enabled = true;
 }
+
+// sample json for signup
+// {
+//     "username": "kakita",
+//     "password": "test",
+//     "email": "testasdfasdfasdf",
+//     "firstName": "test",
+//     "lastName": "test",
+//     "authorities": [
+//         "ROLE_USER",
+//         "ROLE_ADMIN"
+//     ]
+// }

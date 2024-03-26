@@ -20,21 +20,10 @@ public class Router {
                 .GET("/users/{uid}", handler::getById)
                 .POST("/users", handler::save)
                 .POST("/signup", authenticationHandler::signup)
+                .POST("/login", authenticationHandler::login)
                 .PUT("/users/{uid}", handler::update)
                 .DELETE("/users/{uid}", handler::delete)
                 .build();
     }
 }
 
-// sample json for signup
-// {
-//     "username": "kakita",
-//     "password": "test",
-//     "email": "testasdfasdfasdf",
-//     "firstName": "test",
-//     "lastName": "test",
-//     "authorities": [
-//         "ROLE_USER",
-//         "ROLE_ADMIN"
-//     ]
-// }
