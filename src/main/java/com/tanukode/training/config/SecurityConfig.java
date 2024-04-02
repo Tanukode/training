@@ -4,7 +4,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.ReactiveAuthenticationManager;
 import org.springframework.security.authentication.UserDetailsRepositoryReactiveAuthenticationManager;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableReactiveMethodSecurity;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
@@ -33,7 +32,6 @@ public class SecurityConfig {
                         .anyExchange().authenticated())
                 .csrf(csrf -> csrf.disable())
                 .authenticationManager(authenticationManager)
-                .formLogin(Customizer.withDefaults())
                 .addFilterAt(new JwtAuthenticationTokenFilter(tokenProvider), SecurityWebFiltersOrder.FORM_LOGIN);
 
                 
