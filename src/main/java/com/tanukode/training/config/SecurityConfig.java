@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.ReactiveAuthenticationManager;
 import org.springframework.security.authentication.UserDetailsRepositoryReactiveAuthenticationManager;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableReactiveMethodSecurity;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
@@ -11,7 +12,8 @@ import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 
-import com.tanukode.training.security.Filter;
+import com.tanukode.training.security.jwt.JwtAuthenticationTokenFilter;
+import com.tanukode.training.security.jwt.JwtTokenProvider;
 import com.tanukode.training.service.UserDetailsService;
 
 @Configuration
@@ -20,7 +22,10 @@ import com.tanukode.training.service.UserDetailsService;
 public class SecurityConfig {
 
     @Bean
-    public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http, ReactiveAuthenticationManager authenticationManager) {
+    public SecurityWebFilterChain securityWebFilterChain(
+        ServerHttpSecurity http,
+        ReactiveAuthenticationManager authenticationManager,
+        JwtTokenProvider tokenProvider) {
         http
                 .authorizeExchange(exchanges -> exchanges
                         .pathMatchers("/login").permitAll()
@@ -28,7 +33,8 @@ public class SecurityConfig {
                         .anyExchange().authenticated())
                 .csrf(csrf -> csrf.disable())
                 .authenticationManager(authenticationManager)
-                .addFilterAt(new Filter(), SecurityWebFiltersOrder.FORM_LOGIN);
+                .formLogin(Customizer.withDefaults())
+                .addFilterAt(new JwtAuthenticationTokenFilter(tokenProvider), SecurityWebFiltersOrder.FORM_LOGIN);
 
                 
 
